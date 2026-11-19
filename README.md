@@ -57,7 +57,35 @@ Then open **http://localhost:5050**.
 
 - `npm start` builds the React app into `dist/` and then starts the server.
 - After the first build, `npm run serve` starts the server without rebuilding, so it's faster.
-- **Windows:** double-click `start.bat`. It runs `npm install` the first time, starts the app and opens your browser after a few seconds.
+### One-click launchers
+
+Instead of typing commands, you can double-click a launcher file in the project folder:
+
+| OS | File | How to use |
+| --- | --- | --- |
+| **Windows** | `start.bat` | Double-click it in File Explorer. |
+| **macOS** | `start.command` | Double-click it in Finder. It opens in Terminal. |
+
+Each launcher:
+
+1. switches to the project folder, so it works from anywhere,
+2. runs `npm install` the first time, when `node_modules` is missing,
+3. runs `npm start`, which builds the app and starts the server, and
+4. opens http://localhost:5050 in your browser. `start.command` waits until the server answers; `start.bat` waits about 8 seconds.
+
+Keep the window open while you use the app. Closing it, or pressing <kbd>Ctrl</kbd> + <kbd>C</kbd>, stops the server.
+
+**macOS notes for `start.command`:**
+
+- It finds Node.js even if you installed it with **nvm** or **Homebrew**. Finder doesn't load your shell profile, so the script looks in those places itself. If Node.js still isn't found, the script tells you to install it.
+- It needs execute permission. That's already set, and Git keeps it. If you get *"could not be executed because you do not have appropriate access privileges"*, run this once:
+
+  ```bash
+  chmod +x start.command
+  ```
+
+- If macOS says it *"cannot be opened because it is from an unidentified developer"* (which can happen after downloading a ZIP), right-click the file, choose **Open**, then click **Open** again. You only have to do this once.
+- It respects a custom port, for example `PORT=6000 ./start.command` in Terminal.
 
 If `apps.md` doesn't exist yet, it's created empty the first time the app loads.
 
@@ -230,6 +258,7 @@ app-vault/
 ├── index.html         # Vite HTML entry (sets theme before first paint)
 ├── vite.config.js     # Vite config (dev port 5173, /api proxy)
 ├── start.bat          # Windows one-click launcher
+├── start.command      # macOS one-click launcher (double-click in Finder)
 ├── apps.md            # Your data (created when the page first loads, not committed)
 └── apps.md.bak        # Backup of the previous version (created on the first save, not committed)
 ```
@@ -253,6 +282,7 @@ App Vault is a convenience tool for your own computer. It is **not** an encrypte
 | ------- | --- |
 | Page says **"App not built yet. Run: npm start"** | `dist/` is missing. Run `npm start` or `npm run build` once. |
 | `npm install` fails with **`EACCES: permission denied`**, or the build says **`Cannot find module @rollup/rollup-…`** | `node_modules` was copied from another computer or OS. Delete it (`rm -rf node_modules`, or remove the folder on Windows) and run `npm install` again. Don't copy `node_modules` between machines. |
+| `start.command` won't open on macOS | Run `chmod +x start.command` once. If macOS blocks it as coming from an unidentified developer, right-click it and choose **Open**. |
 | **`EADDRINUSE`** when starting | Port 5050 is already in use. Stop the other process or start with a different `PORT`. |
 | Hand edits don't show up | Reload the page. Check that the `##`/`###` headings and `- **Label:** value` lines match the format exactly. |
 | Lost changes after a bad save | Restore from `apps.md.bak`. Close the app first, then copy it over `apps.md`. |

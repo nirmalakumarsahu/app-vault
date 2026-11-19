@@ -1,0 +1,21 @@
+{
+  "name": "app-vault",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Simple standalone app to manage application & instance details. Data is stored in apps.md (no database).",
+  "type": "module",
+  "scripts": {
+    "start": "vite build && node server.js",
+    "serve": "node server.js",
+    "dev": "concurrently -k \"node server.js\" \"vite\"",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "vite": "^5.4.11"
+  },
+  "author": "App Vault"
+}

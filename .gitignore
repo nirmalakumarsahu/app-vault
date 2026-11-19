@@ -1,0 +1,7 @@
+/dist
+/node_modules
+
+# Personal data: contains plain-text credentials
+apps.md
+apps.md.bak
+apps.md.tmp
